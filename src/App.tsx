@@ -32,6 +32,8 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullNameRef.current || !businessRef.current || !emailRef.current || !phoneRef.current || !industryRef.current) {
+      console.error('Lead form submission failed: one or more form fields are not mounted.');
+      setError('The form is not ready. Please reload the page and try again.');
       return;
     }
     setSubmitting(true);
