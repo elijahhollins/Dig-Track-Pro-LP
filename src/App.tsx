@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { insertLead, type RequestType } from './lib/supabaseClient';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   CheckCircle2, 
@@ -19,14 +20,42 @@ import {
 
 const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: () => void, title: string }) => {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const fullNameRef   = useRef<HTMLInputElement>(null);
+  const businessRef   = useRef<HTMLInputElement>(null);
+  const emailRef      = useRef<HTMLInputElement>(null);
+  const phoneRef      = useRef<HTMLInputElement>(null);
+  const industryRef   = useRef<HTMLSelectElement>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 3000);
+    if (!fullNameRef.current || !businessRef.current || !emailRef.current || !phoneRef.current || !industryRef.current) {
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    try {
+      await insertLead({
+        full_name:     fullNameRef.current.value,
+        business_name: businessRef.current.value,
+        email:         emailRef.current.value,
+        phone:         phoneRef.current.value,
+        industry:      industryRef.current.value as Parameters<typeof insertLead>[0]['industry'],
+        request_type:  title as RequestType,
+      });
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        onClose();
+      }, 3000);
+    } catch (err) {
+      console.error('Lead form submission failed:', err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -74,24 +103,24 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Full Name</label>
-                      <input required type="text" className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="John Doe" />
+                      <input ref={fullNameRef} required type="text" className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="John Doe" />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Business Name</label>
-                      <input required type="text" className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="Excavation Co." />
+                      <input ref={businessRef} required type="text" className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="Excavation Co." />
                     </div>
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Work Email</label>
-                    <input required type="email" className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="john@company.com" />
+                    <input ref={emailRef} required type="email" className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="john@company.com" />
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Phone Number</label>
-                    <input required type="tel" className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="(555) 000-0000" />
+                    <input ref={phoneRef} required type="tel" className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="(555) 000-0000" />
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Industry</label>
-                    <select required className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all bg-white">
+                    <select ref={industryRef} required className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all bg-white">
                       <option value="">Select your industry</option>
                       <option value="excavation">Excavation Contractor</option>
                       <option value="utility">Utility Contractor</option>
@@ -100,8 +129,9 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                       <option value="other">Other</option>
                     </select>
                   </div>
-                  <button type="submit" className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 mt-4">
-                    Submit Request <Send className="w-5 h-5" />
+                  {error && <p className="text-red-500 text-sm">{error}</p>}
+                  <button type="submit" disabled={submitting} className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-60 disabled:cursor-not-allowed">
+                    {submitting ? 'Submitting…' : <><span>Submit Request</span> <Send className="w-5 h-5" /></>}
                   </button>
                 </form>
               )}
