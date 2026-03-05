@@ -234,12 +234,19 @@ const Navbar = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
 
 const Hero = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
   <section className="relative pt-20 pb-32 px-6 overflow-hidden">
-    <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
+    <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-6 border border-emerald-100">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          Trusted by 500+ Contractors
+        </div>
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-zinc-900 leading-[1.1] mb-6">
           Stop Chasing 811 Tickets. <br />
           <span className="text-emerald-600 text-4xl md:text-5xl">Start Running Your Jobs.</span>
@@ -266,32 +273,29 @@ const Hero = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative hidden lg:block"
+        className="relative"
       >
-        <div className="bg-white rounded-2xl shadow-2xl border border-zinc-200 p-4 aspect-video flex flex-col gap-4">
-          <div className="h-8 w-full bg-zinc-100 rounded-lg flex items-center px-3 gap-2">
-            <div className="w-2 h-2 rounded-full bg-red-400" />
-            <div className="w-2 h-2 rounded-full bg-yellow-400" />
-            <div className="w-2 h-2 rounded-full bg-green-400" />
-          </div>
-          <div className="flex-1 grid grid-cols-3 gap-4">
-            <div className="col-span-2 bg-zinc-50 rounded-xl p-4 border border-zinc-100">
-              <div className="h-4 w-32 bg-zinc-200 rounded mb-4" />
-              <div className="space-y-3">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className="h-10 w-full bg-white rounded-lg border border-zinc-100 flex items-center px-3 justify-between">
-                    <div className="h-2 w-24 bg-zinc-100 rounded" />
-                    <div className="h-4 w-12 bg-emerald-100 rounded" />
-                  </div>
-                ))}
-              </div>
+        <div className="relative z-10 bg-zinc-900 rounded-2xl shadow-2xl border border-white/10 p-2 overflow-hidden aspect-video group cursor-pointer">
+          <img 
+            src="https://picsum.photos/seed/excavator/1200/800" 
+            alt="App Dashboard Screenshot" 
+            className="w-full h-full object-cover rounded-xl opacity-60 group-hover:scale-105 transition-transform duration-700"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-20 h-20 bg-emerald-600 rounded-full flex items-center justify-center shadow-2xl shadow-emerald-600/40 group-hover:scale-110 transition-transform">
+              <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-1" />
             </div>
-            <div className="bg-zinc-50 rounded-xl p-4 border border-zinc-100 flex flex-col items-center justify-center gap-2">
-              <Clock className="text-emerald-600 w-8 h-8" />
-              <div className="h-2 w-16 bg-zinc-200 rounded" />
+          </div>
+          <div className="absolute bottom-6 left-6 right-6">
+            <div className="bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/10">
+              <p className="text-white font-bold text-sm">Watch Demo: How to track 100+ tickets in 5 minutes</p>
             </div>
           </div>
         </div>
+        {/* Decorative elements */}
+        <div className="absolute -top-6 -right-6 w-32 h-32 bg-emerald-600/10 blur-3xl rounded-full" />
+        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-emerald-600/10 blur-3xl rounded-full" />
       </motion.div>
     </div>
   </section>
@@ -380,6 +384,55 @@ const Solution = () => (
   </section>
 );
 
+const ProductShowcase = () => (
+  <section className="py-24 px-6 bg-white overflow-hidden">
+    <div className="max-w-7xl mx-auto">
+      <div className="text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-4">Built for the Field, Managed in the Office</h2>
+        <p className="text-zinc-600 max-w-2xl mx-auto">Take a look at how Dig Track Pro transforms your messy ticket management into a streamlined workflow.</p>
+      </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[
+          { 
+            img: "https://picsum.photos/seed/heavy-machinery/800/600", 
+            title: "Central Dashboard", 
+            desc: "A bird's eye view of every active ticket across all your projects." 
+          },
+          { 
+            img: "https://picsum.photos/seed/construction-worker/800/600", 
+            title: "Mobile Field Access", 
+            desc: "Foremen can check ticket status and upload mark-out photos on site." 
+          },
+          { 
+            img: "https://picsum.photos/seed/blueprint/800/600", 
+            title: "Smart Notifications", 
+            desc: "Never miss a renewal deadline with our proactive alert system." 
+          }
+        ].map((item, i) => (
+          <motion.div 
+            key={i}
+            whileHover={{ y: -10 }}
+            className="bg-zinc-50 rounded-3xl overflow-hidden border border-zinc-200 group"
+          >
+            <div className="aspect-[4/3] overflow-hidden">
+              <img 
+                src={item.img} 
+                alt={item.title} 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-lg font-bold text-zinc-900 mb-2">{item.title}</h3>
+              <p className="text-zinc-600 text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 const HowItWorks = () => (
   <section id="how-it-works" className="py-24 bg-zinc-50 px-6">
     <div className="max-w-7xl mx-auto text-center">
@@ -388,7 +441,7 @@ const HowItWorks = () => (
         {[
           { step: "1", title: "Upload Your Tickets", desc: "Quickly enter your ticket details or upload your 811 confirmation emails. We'll extract the key dates for tracking." },
           { step: "2", title: "Organize by Project", desc: "Assign tickets to specific jobs or crews. This keeps your dashboard clean and ensures the right people see the right info." },
-          { step: "3", title: "Stay Productive", desc: "Receive automated alerts when it's time to renew. Your office stays organized, and your crews stay digging." }
+          { step: "3", title: "Stay Productive", desc: "Receive proactive alerts when it's time to renew. Your office stays organized, and your crews stay digging." }
         ].map((item, i) => (
           <div key={i} className="relative">
             <div className="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-6 shadow-lg shadow-emerald-600/20">
@@ -468,6 +521,7 @@ function LandingPage() {
       <main>
         <Hero onOpenModal={openModal} />
         <Problem />
+        <ProductShowcase />
         <Solution />
         <HowItWorks />
         <CTA onOpenModal={openModal} />
