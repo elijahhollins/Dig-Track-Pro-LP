@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { supabase } from './supabaseClient';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   CheckCircle2, 
@@ -15,45 +15,66 @@ import {
   HardHat,
   Construction,
   X,
-  Send
+  Send,
+  Loader2
 } from 'lucide-react';
+import { supabase } from './lib/supabase';
+import { AdminLogin, AdminDashboard } from './components/Admin';
 
 const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: () => void, title: string }) => {
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fullName, setFullName] = useState('');
-  const [businessName, setBusinessName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [industry, setIndustry] = useState('');
+
+  const [formData, setFormData] = useState({
+    fullName: '',
+    businessName: '',
+    email: '',
+    phone: '',
+    industry: ''
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
+    setLoading(true);
     setError(null);
 
-    const { error: insertError } = await supabase.from('leads').insert([
-      { full_name: fullName, business_name: businessName, email, phone, industry },
-    ]);
+    try {
+      const { error: supabaseError } = await supabase
+        .from('leads')
+        .insert([
+          { 
+            full_name: formData.fullName,
+            business_name: formData.businessName,
+            email: formData.email,
+            phone: formData.phone,
+            industry: formData.industry,
+            source_cta: title,
+            created_at: new Date().toISOString()
+          }
+        ]);
 
-    setSubmitting(false);
+      if (supabaseError) {
+        console.error('Supabase Error Details:', supabaseError);
+        throw new Error(supabaseError.message || 'Failed to save to database');
+      }
 
-    if (insertError) {
-      setError('Failed to submit form. Please check your connection and try again.');
-      return;
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ fullName: '', businessName: '', email: '', phone: '', industry: '' });
+        onClose();
+      }, 3000);
+    } catch (err: any) {
+      console.error('Error saving lead:', err);
+      setError(err.message || 'Something went wrong. Please try again or contact us directly.');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFullName('');
-      setBusinessName('');
-      setEmail('');
-      setPhone('');
-      setIndustry('');
-      onClose();
-    }, 3000);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -98,27 +119,70 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {error && (
+                    <div className="p-3 bg-red-50 border border-red-100 text-red-600 text-sm rounded-xl">
+                      {error}
+                    </div>
+                  )}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Full Name</label>
-                      <input required type="text" value={fullName} onChange={e => setFullName(e.target.value)} className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="John Doe" />
+                      <input 
+                        required 
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        type="text" 
+                        className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" 
+                        placeholder="John Doe" 
+                      />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Business Name</label>
-                      <input required type="text" value={businessName} onChange={e => setBusinessName(e.target.value)} className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="Excavation Co." />
+                      <input 
+                        required 
+                        name="businessName"
+                        value={formData.businessName}
+                        onChange={handleChange}
+                        type="text" 
+                        className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" 
+                        placeholder="Excavation Co." 
+                      />
                     </div>
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Work Email</label>
-                    <input required type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="john@company.com" />
+                    <input 
+                      required 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      type="email" 
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" 
+                      placeholder="john@company.com" 
+                    />
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Phone Number</label>
-                    <input required type="tel" value={phone} onChange={e => setPhone(e.target.value)} className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" placeholder="(555) 000-0000" />
+                    <input 
+                      required 
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      type="tel" 
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" 
+                      placeholder="(555) 000-0000" 
+                    />
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Industry</label>
-                    <select required value={industry} onChange={e => setIndustry(e.target.value)} className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all bg-white">
+                    <select 
+                      required 
+                      name="industry"
+                      value={formData.industry}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all bg-white"
+                    >
                       <option value="">Select your industry</option>
                       <option value="excavation">Excavation Contractor</option>
                       <option value="utility">Utility Contractor</option>
@@ -127,9 +191,16 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                       <option value="other">Other</option>
                     </select>
                   </div>
-                  {error && <p className="text-red-600 text-sm">{error}</p>}
-                  <button type="submit" disabled={submitting} className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-60 disabled:cursor-not-allowed">
-                    {submitting ? 'Submitting…' : <><span>Submit Request</span> <Send className="w-5 h-5" /></>}
+                  <button 
+                    disabled={loading}
+                    type="submit" 
+                    className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {loading ? (
+                      <>Processing... <Loader2 className="w-5 h-5 animate-spin" /></>
+                    ) : (
+                      <>Submit Request <Send className="w-5 h-5" /></>
+                    )}
                   </button>
                 </form>
               )}
@@ -376,13 +447,13 @@ const Footer = () => (
       <div className="flex gap-6 text-sm font-medium text-zinc-600">
         <a href="#" className="hover:text-emerald-600">Privacy</a>
         <a href="#" className="hover:text-emerald-600">Terms</a>
-        <a href="#" className="hover:text-emerald-600">Support</a>
+        <Link to="/admin" className="opacity-0 hover:opacity-100 transition-opacity text-[10px]">Admin</Link>
       </div>
     </div>
   </footer>
 );
 
-export default function App() {
+function LandingPage() {
   const [modalState, setModalState] = useState<{ isOpen: boolean; title: string }>({
     isOpen: false,
     title: "",
@@ -408,5 +479,55 @@ export default function App() {
         title={modalState.title} 
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/admin/*" element={<AdminRoutes />} />
+      </Routes>
+    </Router>
+  );
+}
+
+function AdminRoutes() {
+  const [session, setSession] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <Routes>
+      <Route 
+        path="/" 
+        element={session ? <Navigate to="/admin/dashboard" replace /> : <AdminLogin />} 
+      />
+      <Route 
+        path="/dashboard" 
+        element={session ? <AdminDashboard /> : <Navigate to="/admin" replace />} 
+      />
+    </Routes>
   );
 }
