@@ -212,6 +212,54 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
   );
 };
 
+const useSiteContent = () => {
+  const [content, setContent] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('site_content')
+          .select('*')
+          .eq('id', 'main')
+          .single();
+
+        if (error && error.code !== 'PGRST116') throw error;
+        
+        if (data) {
+          setContent(data.content);
+        }
+      } catch (err) {
+        console.error('Error fetching site content:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
+  const defaultContent = {
+    hero: {
+      title: "Stop Chasing 811 Tickets. Start Running Your Jobs.",
+      subtitle: "Dig Track Pro is the only centralized dashboard built specifically for excavation contractors to organize and track 811 tickets across every job site. Stay organized. Stay compliant. Stay in control.",
+      image: "https://picsum.photos/seed/excavator/1200/800"
+    },
+    showcase: [
+      { img: "https://picsum.photos/seed/heavy-machinery/800/600", title: "Central Dashboard", desc: "A bird's eye view of every active ticket across all your projects." },
+      { img: "https://picsum.photos/seed/construction-worker/800/600", title: "Mobile Field Access", desc: "Foremen can check ticket status and upload mark-out photos on site." },
+      { img: "https://picsum.photos/seed/blueprint/800/600", title: "Smart Notifications", desc: "Never miss a renewal deadline with our proactive alert system." }
+    ],
+    cta: {
+      title: "Stop Managing Tickets. Start Managing Your Business.",
+      subtitle: "The \"Ticket Chaos\" ends today. Join the hundreds of contractors who have traded their sticky notes for Dig Track Pro."
+    }
+  };
+
+  return { content: content || defaultContent, loading };
+};
+
 const Navbar = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
   <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-black/5">
     <div className="flex items-center gap-2">
@@ -219,9 +267,8 @@ const Navbar = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
       <span className="text-xl font-bold tracking-tight text-zinc-900">Dig Track Pro</span>
     </div>
     <div className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600">
-      <a href="#problem" className="hover:text-emerald-600 transition-colors">The Problem</a>
-      <a href="#solution" className="hover:text-emerald-600 transition-colors">Our Solution</a>
-      <a href="#how-it-works" className="hover:text-emerald-600 transition-colors">How It Works</a>
+      <a href="#platform" className="hover:text-emerald-600 transition-colors">Platform</a>
+      <a href="#product-showcase" className="hover:text-emerald-600 transition-colors">Showcase</a>
     </div>
     <button 
       onClick={() => onOpenModal("Start Your Free Trial")}
@@ -232,7 +279,7 @@ const Navbar = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
   </nav>
 );
 
-const Hero = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
+const Hero = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, content: any }) => (
   <section className="relative pt-20 pb-32 px-6 overflow-hidden">
     <div className="max-w-7xl mx-auto grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
       <motion.div 
@@ -248,11 +295,10 @@ const Hero = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
           Trusted by 500+ Contractors
         </div>
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-zinc-900 leading-[1.1] mb-6">
-          Stop Chasing 811 Tickets. <br />
-          <span className="text-emerald-600 text-4xl md:text-5xl">Start Running Your Jobs.</span>
+          {content.hero.title}
         </h1>
         <p className="text-xl text-zinc-600 mb-8 max-w-2xl leading-relaxed">
-          Dig Track Pro is the only centralized dashboard built specifically for excavation contractors to organize and track 811 tickets across every job site. Stay organized. Stay compliant. Stay in control.
+          {content.hero.subtitle}
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <button 
@@ -277,7 +323,7 @@ const Hero = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
       >
         <div className="relative z-10 bg-zinc-900 rounded-2xl shadow-2xl border border-white/10 p-2 overflow-hidden aspect-video group cursor-pointer">
           <img 
-            src="https://picsum.photos/seed/excavator/1200/800" 
+            src={content.hero.image} 
             alt="App Dashboard Screenshot" 
             className="w-full h-full object-cover rounded-xl opacity-60 group-hover:scale-105 transition-transform duration-700"
             referrerPolicy="no-referrer"
@@ -301,114 +347,156 @@ const Hero = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
   </section>
 );
 
-const Problem = () => (
-  <section id="problem" className="py-24 bg-zinc-50 px-6">
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-6">The "Ticket Chaos" is Costing You More Than You Realize.</h2>
-        <p className="text-lg text-zinc-600 leading-relaxed">
-          If you’re running an excavation company, a utility crew, or a sitework business, you know the "811 dance." It starts with an email. Then a portal login. Then a phone call from a foreman asking if the gas line has been marked. Then another email.
-        </p>
-      </div>
-      <div className="grid md:grid-cols-2 gap-8">
-        {[
-          { icon: <AlertTriangle className="text-red-500" />, title: "The Inbox Black Hole", desc: "Tickets are scattered across office emails and foremen's personal accounts." },
-          { icon: <Clock className="text-amber-500" />, title: "The Renewal Guessing Game", desc: "Nobody knows exactly when a ticket expires without logging into clunky portals." },
-          { icon: <Smartphone className="text-blue-500" />, title: "The Communication Gap", desc: "The office thinks the ticket is good; the field knows the locators haven't shown up." },
-          { icon: <FileArchive className="text-zinc-500" />, title: "The Documentation Disaster", desc: "Scrambling to find original tickets and photos when a utility hit happens." },
-          { icon: <HardHat className="text-emerald-500" />, title: "The Idle Crew Cost", desc: "Every hour a crew waits for a renewal is an hour of lost profit." }
-        ].map((item, i) => (
-          <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-zinc-200 flex gap-4">
-            <div className="shrink-0">{item.icon}</div>
-            <div>
-              <h3 className="font-bold text-zinc-900 mb-1">{item.title}</h3>
-              <p className="text-zinc-600 text-sm leading-relaxed">{item.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
+const PlatformSection = () => {
+  const [activeTab, setActiveTab] = useState('why');
 
-const Solution = () => (
-  <section id="solution" className="py-24 px-6">
-    <div className="max-w-7xl mx-auto">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-6">One Dashboard. Every Ticket. Total Control.</h2>
-          <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
-            Dig Track Pro was built by people who understand the dirt business. We didn't build this for the utility companies or the locators. We built it for the contractors who actually have to move the earth.
-          </p>
-          <div className="space-y-6">
-            {[
-              { icon: <LayoutDashboard />, title: "Centralized Ticket Management", desc: "Stop digging through emails. See every active ticket in your company on one clean, manual-entry dashboard." },
-              { icon: <Bell />, title: "Proactive Expiration Alerts", desc: "Set your dates and get alerts 48h, 24h, and 2h before a ticket goes 'cold' so you're never caught off guard." },
-              { icon: <Smartphone />, title: "Field-First Access", desc: "Give foremen a mobile-optimized view of their specific jobs without them calling the office." },
-              { icon: <FileArchive />, title: "Photo & Document Archiving", desc: "Upload mark-out photos directly to the ticket record. Every record is archived forever for your protection." },
-              { icon: <Clock />, title: "Renewal Tracking", desc: "Log your renewal dates and track the history of every ticket. Never lose track of which tickets need attention." }
-            ].map((feature, i) => (
-              <div key={i} className="flex gap-4">
-                <div className="shrink-0 w-10 h-10 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center">
-                  {feature.icon}
-                </div>
-                <div>
-                  <h3 className="font-bold text-zinc-900 mb-1">{feature.title}</h3>
-                  <p className="text-zinc-600 text-sm leading-relaxed">{feature.desc}</p>
-                </div>
-              </div>
+  const tabs = [
+    { id: 'why', label: 'Why Dig Track Pro?' },
+    { id: 'features', label: 'Core Features' },
+    { id: 'how', label: 'How It Works' }
+  ];
+
+  return (
+    <section id="platform" className="py-24 px-6 bg-zinc-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col items-center mb-16">
+          <div className="inline-flex p-1 bg-zinc-200 rounded-2xl mb-8">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                  activeTab === tab.id 
+                    ? 'bg-white text-zinc-900 shadow-sm' 
+                    : 'text-zinc-500 hover:text-zinc-700'
+                }`}
+              >
+                {tab.label}
+              </button>
             ))}
           </div>
         </div>
-        <div className="bg-zinc-900 rounded-3xl p-8 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-600/20 blur-3xl rounded-full -mr-32 -mt-32" />
-          <div className="relative z-10">
-            <h4 className="text-emerald-400 font-bold mb-4 uppercase tracking-wider text-sm">Risk Protection</h4>
-            <h3 className="text-2xl font-bold mb-6">Protect Your Profit and Your Reputation.</h3>
-            <p className="text-zinc-400 mb-8 leading-relaxed">
-              In excavation, your reputation is everything. But one utility hit can change that in an instant. Most hits aren't caused by negligence; they're caused by bad information.
-            </p>
-            <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
-              <div className="flex items-center gap-3 mb-4">
-                <ShieldCheck className="text-emerald-400" />
-                <span className="font-bold">Insurance Policy for Your Digs</span>
-              </div>
-              <p className="text-sm text-zinc-400 leading-relaxed">
-                Dig Track Pro acts as your insurance policy against "expired ticket" hits. By centralizing your documentation, you also protect yourself against "falsely attributed" hits.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
 
-const ProductShowcase = () => (
-  <section className="py-24 px-6 bg-white overflow-hidden">
+        <AnimatePresence mode="wait">
+          {activeTab === 'why' && (
+            <motion.div
+              key="why"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="grid lg:grid-cols-2 gap-16 items-center"
+            >
+              <div>
+                <h2 className="text-4xl font-bold text-zinc-900 mb-6 tracking-tight">The "Ticket Chaos" is Costing You More Than You Realize.</h2>
+                <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
+                  If you’re running an excavation company, you know the "811 dance." It starts with an email. Then a portal login. Then a phone call from a foreman asking if the gas line has been marked.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {[
+                    { icon: <AlertTriangle className="text-red-500" />, title: "Inbox Chaos", desc: "Tickets scattered across office emails." },
+                    { icon: <Clock className="text-amber-500" />, title: "Renewal Guesses", desc: "Nobody knows exactly when a ticket expires." },
+                    { icon: <Smartphone className="text-blue-500" />, title: "Field Gaps", desc: "Office thinks it's good; field knows it's not." },
+                    { icon: <ShieldCheck className="text-emerald-500" />, title: "Risk Exposure", desc: "Scrambling for photos when a hit happens." }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-3">
+                      <div className="shrink-0 mt-1">{item.icon}</div>
+                      <div>
+                        <h4 className="font-bold text-zinc-900 text-sm">{item.title}</h4>
+                        <p className="text-zinc-500 text-xs leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-zinc-900 rounded-[2rem] p-10 text-white relative overflow-hidden shadow-2xl">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-600/20 blur-3xl rounded-full -mr-32 -mt-32" />
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold mb-6">Protect Your Profit.</h3>
+                  <p className="text-zinc-400 mb-8 leading-relaxed">
+                    Most utility hits aren't caused by negligence; they're caused by bad information. Dig Track Pro acts as your insurance policy against "expired ticket" hits.
+                  </p>
+                  <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <div className="w-12 h-12 bg-emerald-600/20 rounded-xl flex items-center justify-center">
+                      <ShieldCheck className="text-emerald-400" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-sm">Centralized Documentation</p>
+                      <p className="text-xs text-zinc-500">Protect against falsely attributed hits.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {activeTab === 'features' && (
+            <motion.div
+              key="features"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {[
+                { icon: <LayoutDashboard />, title: "Centralized Management", desc: "Stop digging through emails. See every active ticket in your company on one clean dashboard." },
+                { icon: <Bell />, title: "Proactive Alerts", desc: "Get alerts 48h, 24h, and 2h before a ticket goes 'cold' so you're never caught off guard." },
+                { icon: <Smartphone />, title: "Field-First Access", desc: "Give foremen a mobile-optimized view of their specific jobs without them calling the office." },
+                { icon: <FileArchive />, title: "Photo Archiving", desc: "Upload mark-out photos directly to the ticket record. Every record is archived forever." },
+                { icon: <Clock />, title: "Renewal Tracking", desc: "Log your renewal dates and track the history of every ticket. Never lose track." },
+                { icon: <HardHat />, title: "Crew Coordination", desc: "Assign tickets to specific crews and ensure everyone is working on valid tickets." }
+              ].map((feature, i) => (
+                <div key={i} className="bg-white p-8 rounded-3xl border border-zinc-200 hover:border-emerald-500/50 transition-colors group">
+                  <div className="w-12 h-12 bg-zinc-50 text-zinc-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 rounded-2xl flex items-center justify-center mb-6 transition-colors">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-zinc-900 mb-3">{feature.title}</h3>
+                  <p className="text-zinc-600 text-sm leading-relaxed">{feature.desc}</p>
+                </div>
+              ))}
+            </motion.div>
+          )}
+
+          {activeTab === 'how' && (
+            <motion.div
+              key="how"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="max-w-4xl mx-auto"
+            >
+              <div className="grid md:grid-cols-3 gap-12">
+                {[
+                  { step: "01", title: "Upload Tickets", desc: "Quickly enter ticket details or upload 811 confirmation emails." },
+                  { step: "02", title: "Organize Jobs", desc: "Assign tickets to specific jobs or crews to keep the dashboard clean." },
+                  { step: "03", title: "Stay Digging", desc: "Receive proactive alerts when it's time to renew. Stay productive." }
+                ].map((item, i) => (
+                  <div key={i} className="text-center">
+                    <div className="text-5xl font-black text-zinc-100 mb-4 tracking-tighter">{item.step}</div>
+                    <h3 className="text-xl font-bold text-zinc-900 mb-4">{item.title}</h3>
+                    <p className="text-zinc-600 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+};
+
+const ProductShowcase = ({ showcase }: { showcase: any[] }) => (
+  <section id="product-showcase" className="py-24 px-6 bg-white overflow-hidden">
     <div className="max-w-7xl mx-auto">
       <div className="text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-4">Built for the Field, Managed in the Office</h2>
         <p className="text-zinc-600 max-w-2xl mx-auto">Take a look at how Dig Track Pro transforms your messy ticket management into a streamlined workflow.</p>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {[
-          { 
-            img: "https://picsum.photos/seed/heavy-machinery/800/600", 
-            title: "Central Dashboard", 
-            desc: "A bird's eye view of every active ticket across all your projects." 
-          },
-          { 
-            img: "https://picsum.photos/seed/construction-worker/800/600", 
-            title: "Mobile Field Access", 
-            desc: "Foremen can check ticket status and upload mark-out photos on site." 
-          },
-          { 
-            img: "https://picsum.photos/seed/blueprint/800/600", 
-            title: "Smart Notifications", 
-            desc: "Never miss a renewal deadline with our proactive alert system." 
-          }
-        ].map((item, i) => (
+        {showcase.map((item: any, i: number) => (
           <motion.div 
             key={i}
             whileHover={{ y: -10 }}
@@ -433,40 +521,16 @@ const ProductShowcase = () => (
   </section>
 );
 
-const HowItWorks = () => (
-  <section id="how-it-works" className="py-24 bg-zinc-50 px-6">
-    <div className="max-w-7xl mx-auto text-center">
-      <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-16">How It Works</h2>
-      <div className="grid md:grid-cols-3 gap-12">
-        {[
-          { step: "1", title: "Upload Your Tickets", desc: "Quickly enter your ticket details or upload your 811 confirmation emails. We'll extract the key dates for tracking." },
-          { step: "2", title: "Organize by Project", desc: "Assign tickets to specific jobs or crews. This keeps your dashboard clean and ensures the right people see the right info." },
-          { step: "3", title: "Stay Productive", desc: "Receive proactive alerts when it's time to renew. Your office stays organized, and your crews stay digging." }
-        ].map((item, i) => (
-          <div key={i} className="relative">
-            <div className="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-6 shadow-lg shadow-emerald-600/20">
-              {item.step}
-            </div>
-            <h3 className="text-xl font-bold text-zinc-900 mb-4">{item.title}</h3>
-            <p className="text-zinc-600 leading-relaxed">{item.desc}</p>
-            {i < 2 && (
-              <div className="hidden lg:block absolute top-6 left-[calc(50%+3rem)] w-[calc(100%-6rem)] h-px bg-zinc-200" />
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-const CTA = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
+const CTA = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, content: any }) => (
   <section className="py-24 px-6">
     <div className="max-w-5xl mx-auto bg-emerald-600 rounded-[2.5rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-emerald-600/30">
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent)]" />
       <div className="relative z-10">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">Stop Managing Tickets. <br />Start Managing Your Business.</h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
+          {content.cta?.title || 'Stop Managing Tickets. Start Managing Your Business.'}
+        </h2>
         <p className="text-xl text-emerald-50 mb-12 max-w-2xl mx-auto">
-          The "Ticket Chaos" ends today. Join the hundreds of contractors who have traded their sticky notes for Dig Track Pro.
+          {content.cta?.subtitle || 'The "Ticket Chaos" ends today. Join the hundreds of contractors who have traded their sticky notes for Dig Track Pro.'}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button 
@@ -487,7 +551,7 @@ const CTA = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
   </section>
 );
 
-const Footer = () => (
+const Footer = ({ content }: { content: any }) => (
   <footer className="py-12 border-t border-zinc-200 px-6">
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
       <div className="flex items-center gap-2">
@@ -495,7 +559,7 @@ const Footer = () => (
         <span className="text-lg font-bold text-zinc-900">Dig Track Pro</span>
       </div>
       <div className="text-sm text-zinc-500">
-        © {new Date().getFullYear()} Dig Track Pro. Built for contractors who move the earth.
+        {content.footer?.text || `© ${new Date().getFullYear()} Dig Track Pro. Built for contractors who move the earth.`}
       </div>
       <div className="flex gap-6 text-sm font-medium text-zinc-600">
         <a href="#" className="hover:text-emerald-600">Privacy</a>
@@ -512,21 +576,29 @@ function LandingPage() {
     title: "",
   });
 
+  const { content, loading } = useSiteContent();
+
   const openModal = (title: string) => setModalState({ isOpen: true, title });
   const closeModal = () => setModalState({ ...modalState, isOpen: false });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-emerald-100 selection:text-emerald-900">
       <Navbar onOpenModal={openModal} />
       <main>
-        <Hero onOpenModal={openModal} />
-        <Problem />
-        <ProductShowcase />
-        <Solution />
-        <HowItWorks />
-        <CTA onOpenModal={openModal} />
+        <Hero onOpenModal={openModal} content={content} />
+        <PlatformSection />
+        <ProductShowcase showcase={content.showcase} />
+        <CTA onOpenModal={openModal} content={content} />
       </main>
-      <Footer />
+      <Footer content={content} />
       <LeadFormModal 
         isOpen={modalState.isOpen} 
         onClose={closeModal} 
