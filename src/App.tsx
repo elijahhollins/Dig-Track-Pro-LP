@@ -323,7 +323,7 @@ const Hero = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, 
       >
         <div className="relative z-10 rounded-2xl shadow-2xl overflow-hidden aspect-video">
           <iframe
-            src="https://www.youtube.com/embed/VIDEO_ID"
+            src="https://www.youtube.com/embed/JeXTkTqYWFo?si=5pfg-ZZlvXSlo1z6"
             title="YouTube video player"
             style={{ border: 0 }}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
