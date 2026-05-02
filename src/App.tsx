@@ -328,7 +328,7 @@ const Hero = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, 
             style={{ border: 0 }}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
-            className="w-full h-full rounded-2xl"
+            className="w-full h-full"
           ></iframe>
         </div>
         {/* Decorative elements */}
