@@ -321,23 +321,17 @@ const Hero = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, 
         transition={{ duration: 0.8, delay: 0.2 }}
         className="relative"
       >
-        <div className="relative z-10 bg-zinc-900 rounded-2xl shadow-2xl border border-white/10 p-2 overflow-hidden aspect-video group cursor-pointer">
-          <img 
-            src={content.hero.image} 
-            alt="App Dashboard Screenshot" 
-            className="w-full h-full object-cover rounded-xl opacity-60 group-hover:scale-105 transition-transform duration-700"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 bg-emerald-600 rounded-full flex items-center justify-center shadow-2xl shadow-emerald-600/40 group-hover:scale-110 transition-transform">
-              <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-1" />
-            </div>
-          </div>
-          <div className="absolute bottom-6 left-6 right-6">
-            <div className="bg-black/40 backdrop-blur-md p-4 rounded-xl border border-white/10">
-              <p className="text-white font-bold text-sm">Watch Demo: How to track 100+ tickets in 5 minutes</p>
-            </div>
-          </div>
+        <div className="relative z-10 rounded-2xl shadow-2xl overflow-hidden aspect-video">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/VIDEO_ID"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full rounded-2xl"
+          ></iframe>
         </div>
         {/* Decorative elements */}
         <div className="absolute -top-6 -right-6 w-32 h-32 bg-emerald-600/10 blur-3xl rounded-full" />
