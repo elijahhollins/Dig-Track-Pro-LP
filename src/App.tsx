@@ -254,6 +254,9 @@ const useSiteContent = () => {
     cta: {
       title: "Stop Managing Tickets. Start Managing Your Business.",
       subtitle: "The \"Ticket Chaos\" ends today. Join the hundreds of contractors who have traded their sticky notes for Dig Track Pro."
+    },
+    footer: {
+      text: `© ${new Date().getFullYear()} Dig Track Pro. Built for contractors who move the earth.`
     }
   };
 
@@ -266,7 +269,7 @@ const useSiteContent = () => {
     hero: { ...defaultContent.hero, ...(content.hero || {}) },
     showcase: Array.isArray(content.showcase) ? content.showcase : defaultContent.showcase,
     cta: { ...defaultContent.cta, ...(content.cta || {}) },
-    ...(content.footer ? { footer: content.footer } : {}),
+    footer: { ...defaultContent.footer, ...(content.footer || {}) },
   } : defaultContent;
 
   return { content: mergedContent, loading };

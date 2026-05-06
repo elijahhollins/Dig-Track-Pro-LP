@@ -10,6 +10,8 @@ interface ErrorBoundaryState {
 }
 
 class ErrorBoundary extends Component<{children: ReactNode}, ErrorBoundaryState> {
+  // `declare` informs TypeScript about inherited properties when @types/react is absent
+  declare props: {children: ReactNode};
   state: ErrorBoundaryState = {hasError: false, message: ''};
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
@@ -31,7 +33,7 @@ class ErrorBoundary extends Component<{children: ReactNode}, ErrorBoundaryState>
         </div>
       );
     }
-    return (this as unknown as {props: {children: ReactNode}}).props.children;
+    return this.props.children;
   }
 }
 
