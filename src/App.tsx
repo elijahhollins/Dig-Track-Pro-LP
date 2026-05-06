@@ -49,7 +49,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
             email: formData.email,
             phone: formData.phone,
             industry: formData.industry,
-            source_cta: title,
+            request_type: title,
             created_at: new Date().toISOString()
           }
         ]);
@@ -254,10 +254,25 @@ const useSiteContent = () => {
     cta: {
       title: "Stop Managing Tickets. Start Managing Your Business.",
       subtitle: "The \"Ticket Chaos\" ends today. Join the hundreds of contractors who have traded their sticky notes for Dig Track Pro."
+    },
+    footer: {
+      text: `© ${new Date().getFullYear()} Dig Track Pro. Built for contractors who move the earth.`
     }
   };
 
-  return { content: content || defaultContent, loading };
+  // Deep-merge fetched content with defaults so that missing or empty keys
+  // always fall back to sensible values. Using `content || defaultContent`
+  // would fail when `content` is `{}` (truthy but empty), which happens when
+  // the DB row is seeded with an empty JSON object — causing a white screen
+  // because component code like `content.hero.title` throws TypeError.
+  const mergedContent = content ? {
+    hero: { ...defaultContent.hero, ...(content.hero || {}) },
+    showcase: Array.isArray(content.showcase) ? content.showcase : defaultContent.showcase,
+    cta: { ...defaultContent.cta, ...(content.cta || {}) },
+    footer: { ...defaultContent.footer, ...(content.footer || {}) },
+  } : defaultContent;
+
+  return { content: mergedContent, loading };
 };
 
 const Navbar = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
