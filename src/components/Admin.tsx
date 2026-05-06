@@ -65,17 +65,17 @@ export function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-3xl shadow-xl border border-zinc-200 overflow-hidden">
+        <div className="bg-slate-800 rounded-3xl shadow-xl border border-slate-700 overflow-hidden">
           <div className="p-8">
             <div className="flex items-center gap-2 mb-8 justify-center">
-              <Construction className="w-8 h-8 text-amber-600" />
-              <span className="text-xl font-bold tracking-tight text-zinc-900">Dig Track Admin</span>
+              <Construction className="w-8 h-8 text-orange-600" />
+              <span className="text-xl font-bold tracking-tight text-white">Dig Track Admin</span>
             </div>
             
-            <h1 className="text-2xl font-bold text-zinc-900 mb-2 text-center">Welcome Back</h1>
-            <p className="text-zinc-500 text-center mb-8">Sign in to manage your leads</p>
+            <h1 className="text-2xl font-bold text-white mb-2 text-center">Welcome Back</h1>
+            <p className="text-slate-500 text-center mb-8">Sign in to manage your leads</p>
 
             <form onSubmit={handleLogin} className="space-y-4">
               {error && (
@@ -84,24 +84,24 @@ export function AdminLogin() {
                 </div>
               )}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Email Address</label>
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Email Address</label>
                 <input 
                   required
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
                   placeholder="admin@digtrack.pro"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Password</label>
+                <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Password</label>
                 <input 
                   required
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
                   placeholder="••••••••"
                 />
               </div>
@@ -115,7 +115,7 @@ export function AdminLogin() {
             </form>
           </div>
         </div>
-        <p className="text-center mt-8 text-zinc-400 text-xs">
+        <p className="text-center mt-8 text-slate-500 text-xs">
           Secure access only. Unauthorized attempts are logged.
         </p>
       </div>
@@ -272,39 +272,39 @@ export function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-amber-600 animate-spin" />
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-orange-600 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-slate-900">
       {/* Sidebar/Header */}
-      <header className="bg-white border-b border-zinc-200 sticky top-0 z-10">
+      <header className="bg-slate-900 border-b border-slate-700 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-amber-600 rounded-xl flex items-center justify-center text-white">
+            <div className="w-10 h-10 bg-orange-600 rounded-xl flex items-center justify-center text-white">
               <LayoutDashboard className="w-6 h-6" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-zinc-900">Lead Dashboard</h1>
-              <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">Dig Track Pro Admin</p>
+              <h1 className="text-xl font-bold text-white">Lead Dashboard</h1>
+              <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Dig Track Pro Admin</p>
             </div>
           </div>
           
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-1 bg-zinc-100 p-1 rounded-xl">
+            <div className="flex items-center gap-1 bg-slate-700 p-1 rounded-xl">
               <button 
                 onClick={() => setActiveTab('leads')}
-                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 ${activeTab === 'leads' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 ${activeTab === 'leads' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}`}
               >
                 <User className="w-4 h-4" />
                 Leads
               </button>
               <button 
                 onClick={() => setActiveTab('site')}
-                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 ${activeTab === 'site' ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-700'}`}
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 ${activeTab === 'site' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}`}
               >
                 <Settings className="w-4 h-4" />
                 Site Editor
@@ -313,7 +313,7 @@ export function AdminDashboard() {
             
             <button 
               onClick={handleLogout}
-              className="flex items-center gap-2 text-zinc-500 hover:text-red-600 transition-colors font-medium text-sm"
+              className="flex items-center gap-2 text-slate-500 hover:text-red-600 transition-colors font-medium text-sm"
             >
               <LogOut className="w-4 h-4" />
               Sign Out
@@ -327,41 +327,41 @@ export function AdminDashboard() {
           <>
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm">
-                <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1">Total Leads</p>
-                <h3 className="text-3xl font-bold text-zinc-900">{leads.length}</h3>
+              <div className="bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-sm">
+                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Total Leads</p>
+                <h3 className="text-3xl font-bold text-white">{leads.length}</h3>
               </div>
-              <div className="bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm">
-                <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1">Last 7 Days</p>
-                <h3 className="text-3xl font-bold text-zinc-900">
+              <div className="bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-sm">
+                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Last 7 Days</p>
+                <h3 className="text-3xl font-bold text-white">
                   {leads.filter(l => new Date(l.created_at) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length}
                 </h3>
               </div>
-              <div className="bg-white p-6 rounded-3xl border border-zinc-200 shadow-sm">
-                <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest mb-1">Conversion Rate</p>
-                <h3 className="text-3xl font-bold text-zinc-900">100%</h3>
+              <div className="bg-slate-800 p-6 rounded-3xl border border-slate-700 shadow-sm">
+                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Conversion Rate</p>
+                <h3 className="text-3xl font-bold text-white">100%</h3>
               </div>
             </div>
 
             {/* Controls */}
-            <div className="bg-white rounded-3xl border border-zinc-200 shadow-sm overflow-hidden">
-              <div className="p-6 border-b border-zinc-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-slate-800 rounded-3xl border border-slate-700 shadow-sm overflow-hidden">
+              <div className="p-6 border-b border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <input 
                     type="text" 
                     placeholder="Search leads by name, business or email..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-sm"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all text-sm"
                   />
                 </div>
                 <div className="flex items-center gap-2">
-                  <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-200 text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-all">
+                  <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-700 text-sm font-medium text-slate-400 hover:bg-slate-700 transition-all">
                     <Filter className="w-4 h-4" />
                     Filter
                   </button>
-                  <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-zinc-200 text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-all">
+                  <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-700 text-sm font-medium text-slate-400 hover:bg-slate-700 transition-all">
                     <ArrowUpDown className="w-4 h-4" />
                     Sort
                   </button>
@@ -372,51 +372,51 @@ export function AdminDashboard() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-zinc-50/50">
-                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500">Lead Info</th>
-                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500">Business</th>
-                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500">Industry</th>
-                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500">Source</th>
-                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500">Date</th>
-                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-zinc-500"></th>
+                    <tr className="bg-slate-700/50">
+                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Lead Info</th>
+                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Business</th>
+                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Industry</th>
+                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Source</th>
+                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500">Date</th>
+                      <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-500"></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-zinc-100">
+                  <tbody className="divide-y divide-slate-700">
                     {filteredLeads.map((lead) => (
-                      <tr key={lead.id} className="hover:bg-zinc-50/50 transition-colors group">
+                      <tr key={lead.id} className="hover:bg-slate-700/30 transition-colors group">
                         <td className="px-6 py-4">
                           <div className="flex flex-col">
-                            <span className="font-bold text-zinc-900">{lead.full_name}</span>
-                            <span className="text-xs text-zinc-500 flex items-center gap-1 mt-0.5">
+                            <span className="font-bold text-white">{lead.full_name}</span>
+                            <span className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
                               <Mail className="w-3 h-3" /> {lead.email}
                             </span>
-                            <span className="text-xs text-zinc-500 flex items-center gap-1 mt-0.5">
+                            <span className="text-xs text-slate-500 flex items-center gap-1 mt-0.5">
                               <Phone className="w-3 h-3" /> {lead.phone}
                             </span>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="flex items-center gap-2 text-zinc-700 font-medium">
-                            <Building2 className="w-4 h-4 text-zinc-400" />
+                          <div className="flex items-center gap-2 text-slate-300 font-medium">
+                            <Building2 className="w-4 h-4 text-slate-500" />
                             {lead.business_name}
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-600 text-[10px] font-bold uppercase tracking-wider">
+                          <span className="px-2.5 py-1 rounded-full bg-slate-600 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
                             {lead.industry}
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="text-sm text-zinc-600">{lead.source_cta}</span>
+                          <span className="text-sm text-slate-400">{lead.source_cta}</span>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="flex items-center gap-2 text-zinc-500 text-sm">
+                          <div className="flex items-center gap-2 text-slate-500 text-sm">
                             <Calendar className="w-4 h-4" />
                             {new Date(lead.created_at).toLocaleDateString()}
                           </div>
                         </td>
                         <td className="px-6 py-4 text-right">
-                          <button className="p-2 hover:bg-white hover:shadow-sm rounded-lg transition-all text-zinc-400 hover:text-amber-600">
+                          <button className="p-2 hover:bg-slate-700 hover:shadow-sm rounded-lg transition-all text-slate-500 hover:text-orange-500">
                             <ChevronRight className="w-5 h-5" />
                           </button>
                         </td>
@@ -424,7 +424,7 @@ export function AdminDashboard() {
                     ))}
                     {filteredLeads.length === 0 && (
                       <tr>
-                        <td colSpan={6} className="px-6 py-12 text-center text-zinc-500">
+                        <td colSpan={6} className="px-6 py-12 text-center text-slate-500">
                           No leads found matching your search.
                         </td>
                       </tr>
@@ -438,13 +438,13 @@ export function AdminDashboard() {
           <div className="space-y-8">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-zinc-900">Site Content Editor</h2>
-                <p className="text-zinc-500 text-sm">Update your landing page text and images in real-time.</p>
+                <h2 className="text-2xl font-bold text-white">Site Content Editor</h2>
+                <p className="text-slate-500 text-sm">Update your landing page text and images in real-time.</p>
               </div>
               <button 
                 onClick={handleSaveSiteContent}
                 disabled={saving}
-                className="bg-amber-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-amber-700 transition-all flex items-center gap-2 shadow-lg shadow-amber-600/20 disabled:opacity-70"
+                className="bg-orange-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-orange-700 transition-all flex items-center gap-2 shadow-lg shadow-orange-600/20 disabled:opacity-70"
               >
                 {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                 Save Changes
@@ -453,39 +453,39 @@ export function AdminDashboard() {
 
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Hero Section Editor */}
-              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
-                <div className="flex items-center gap-3 pb-4 border-b border-zinc-100">
-                  <ImageIcon className="text-amber-600 w-5 h-5" />
-                  <h3 className="font-bold text-zinc-900">Hero Section</h3>
+              <div className="bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-sm space-y-6">
+                <div className="flex items-center gap-3 pb-4 border-b border-slate-700">
+                  <ImageIcon className="text-orange-600 w-5 h-5" />
+                  <h3 className="font-bold text-white">Hero Section</h3>
                 </div>
                 
                 <div className="space-y-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Hero Title</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Hero Title</label>
                     <input 
                       type="text"
                       value={siteContent?.hero?.title || ''}
                       onChange={(e) => setSiteContent({ ...siteContent, hero: { ...siteContent.hero, title: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Hero Subtitle</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Hero Subtitle</label>
                     <textarea 
                       rows={3}
                       value={siteContent?.hero?.subtitle || ''}
                       onChange={(e) => setSiteContent({ ...siteContent, hero: { ...siteContent.hero, subtitle: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all resize-none"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Hero Image</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Hero Image</label>
                     <div className="flex items-center gap-4">
-                      <div className="w-24 h-16 rounded-lg border border-zinc-200 overflow-hidden bg-zinc-50">
+                      <div className="w-24 h-16 rounded-lg border border-slate-700 overflow-hidden bg-slate-900">
                         {siteContent?.hero?.image ? (
                           <img src={siteContent.hero.image} alt="Hero preview" className="w-full h-full object-cover" />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center text-zinc-300">
+                          <div className="w-full h-full flex items-center justify-center text-slate-400">
                             <ImageIcon className="w-6 h-6" />
                           </div>
                         )}
@@ -496,9 +496,9 @@ export function AdminDashboard() {
                           placeholder="Image URL"
                           value={siteContent?.hero?.image || ''}
                           onChange={(e) => setSiteContent({ ...siteContent, hero: { ...siteContent.hero, image: e.target.value } })}
-                          className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+                          className="w-full px-3 py-2 rounded-lg border border-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-orange-500/20"
                         />
-                        <label className="inline-flex items-center gap-2 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg text-[10px] font-bold text-zinc-600 cursor-pointer transition-all">
+                        <label className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-600 hover:bg-slate-500 rounded-lg text-[10px] font-bold text-slate-400 cursor-pointer transition-all">
                           <Upload className="w-3 h-3" />
                           Upload Image
                           <input 
@@ -515,67 +515,67 @@ export function AdminDashboard() {
               </div>
 
               {/* CTA Section Editor */}
-              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
-                <div className="flex items-center gap-3 pb-4 border-b border-zinc-100">
-                  <MessageSquare className="text-amber-600 w-5 h-5" />
-                  <h3 className="font-bold text-zinc-900">Call to Action (CTA)</h3>
+              <div className="bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-sm space-y-6">
+                <div className="flex items-center gap-3 pb-4 border-b border-slate-700">
+                  <MessageSquare className="text-orange-600 w-5 h-5" />
+                  <h3 className="font-bold text-white">Call to Action (CTA)</h3>
                 </div>
                 
                 <div className="space-y-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">CTA Title</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500">CTA Title</label>
                     <input 
                       type="text"
                       value={siteContent?.cta?.title || 'Stop Managing Tickets. Start Managing Your Business.'}
                       onChange={(e) => setSiteContent({ ...siteContent, cta: { ...(siteContent.cta || {}), title: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">CTA Subtitle</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500">CTA Subtitle</label>
                     <textarea 
                       rows={3}
                       value={siteContent?.cta?.subtitle || 'The "Ticket Chaos" ends today. Join the hundreds of contractors who have traded their sticky notes for Dig Track Pro.'}
                       onChange={(e) => setSiteContent({ ...siteContent, cta: { ...(siteContent.cta || {}), subtitle: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all resize-none"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Footer Section Editor */}
-              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
-                <div className="flex items-center gap-3 pb-4 border-b border-zinc-100">
-                  <Globe className="text-amber-600 w-5 h-5" />
-                  <h3 className="font-bold text-zinc-900">Footer Section</h3>
+              <div className="bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-sm space-y-6">
+                <div className="flex items-center gap-3 pb-4 border-b border-slate-700">
+                  <Globe className="text-orange-600 w-5 h-5" />
+                  <h3 className="font-bold text-white">Footer Section</h3>
                 </div>
                 
                 <div className="space-y-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Footer Text</label>
+                    <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Footer Text</label>
                     <input 
                       type="text"
                       value={siteContent?.footer?.text || ''}
                       onChange={(e) => setSiteContent({ ...siteContent, footer: { ...(siteContent.footer || {}), text: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Showcase Editor */}
-              <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6 lg:col-span-2">
-                <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
+              <div className="bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-sm space-y-6 lg:col-span-2">
+                <div className="flex items-center justify-between pb-4 border-b border-slate-700">
                   <div className="flex items-center gap-3">
-                    <LayoutDashboard className="text-amber-600 w-5 h-5" />
-                    <h3 className="font-bold text-zinc-900">Product Showcase</h3>
+                    <LayoutDashboard className="text-orange-600 w-5 h-5" />
+                    <h3 className="font-bold text-white">Product Showcase</h3>
                   </div>
                   <button 
                     onClick={() => {
                       const newShowcase = [...(siteContent?.showcase || []), { img: '', title: 'New Feature', desc: '' }];
                       setSiteContent({ ...siteContent, showcase: newShowcase });
                     }}
-                    className="text-amber-600 hover:text-amber-700 text-sm font-bold flex items-center gap-1"
+                    className="text-orange-600 hover:text-orange-700 text-sm font-bold flex items-center gap-1"
                   >
                     <Plus className="w-4 h-4" /> Add Item
                   </button>
@@ -583,13 +583,13 @@ export function AdminDashboard() {
 
                 <div className="space-y-6 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                   {siteContent?.showcase?.map((item: any, idx: number) => (
-                    <div key={idx} className="p-4 bg-zinc-50 rounded-2xl border border-zinc-100 relative group">
+                    <div key={idx} className="p-4 bg-slate-700 rounded-2xl border border-slate-700 relative group">
                       <button 
                         onClick={() => {
                           const newShowcase = siteContent.showcase.filter((_: any, i: number) => i !== idx);
                           setSiteContent({ ...siteContent, showcase: newShowcase });
                         }}
-                        className="absolute top-2 right-2 p-1.5 text-zinc-400 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-all"
+                        className="absolute top-2 right-2 p-1.5 text-slate-500 hover:text-red-600 opacity-0 group-hover:opacity-100 transition-all"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -603,7 +603,7 @@ export function AdminDashboard() {
                             newShowcase[idx].title = e.target.value;
                             setSiteContent({ ...siteContent, showcase: newShowcase });
                           }}
-                          className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-sm font-bold"
+                          className="w-full px-3 py-2 rounded-lg border border-slate-700 text-sm font-bold"
                         />
                         <textarea 
                           placeholder="Description"
@@ -614,14 +614,14 @@ export function AdminDashboard() {
                             newShowcase[idx].desc = e.target.value;
                             setSiteContent({ ...siteContent, showcase: newShowcase });
                           }}
-                          className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs resize-none"
+                          className="w-full px-3 py-2 rounded-lg border border-slate-700 text-xs resize-none"
                         />
                         <div className="flex items-center gap-4">
-                          <div className="w-20 h-20 rounded-lg border border-zinc-200 overflow-hidden bg-white shrink-0">
+                          <div className="w-20 h-20 rounded-lg border border-slate-700 overflow-hidden bg-slate-700 shrink-0">
                             {item.img ? (
                               <img src={item.img} alt="Preview" className="w-full h-full object-cover" />
                             ) : (
-                              <div className="w-full h-full flex items-center justify-center text-zinc-300">
+                              <div className="w-full h-full flex items-center justify-center text-slate-400">
                                 <ImageIcon className="w-5 h-5" />
                               </div>
                             )}
@@ -636,9 +636,9 @@ export function AdminDashboard() {
                                 newShowcase[idx].img = e.target.value;
                                 setSiteContent({ ...siteContent, showcase: newShowcase });
                               }}
-                              className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs"
+                              className="w-full px-3 py-2 rounded-lg border border-slate-700 text-xs"
                             />
-                            <label className="inline-flex items-center gap-2 px-3 py-1.5 bg-white hover:bg-zinc-100 rounded-lg text-[10px] font-bold text-zinc-600 cursor-pointer border border-zinc-200 transition-all">
+                            <label className="inline-flex items-center gap-2 px-3 py-1.5 bg-slate-700 hover:bg-slate-600 rounded-lg text-[10px] font-bold text-slate-400 cursor-pointer border border-slate-700 transition-all">
                               <Upload className="w-3 h-3" />
                               Upload
                               <input 
