@@ -8,8 +8,12 @@
 -- 1. Allow anonymous (public) visitors to read site_content
 --    so that admin-edited landing-page copy is visible to
 --    all visitors without requiring authentication.
+--    PostgreSQL does not support IF NOT EXISTS for policies,
+--    so we drop it first (idempotent) and then recreate it.
 -- -------------------------------------------------------
-CREATE POLICY IF NOT EXISTS "Public can read site_content"
+DROP POLICY IF EXISTS "Public can read site_content" ON public.site_content;
+
+CREATE POLICY "Public can read site_content"
   ON public.site_content
   FOR SELECT
   TO anon
@@ -30,7 +34,7 @@ VALUES (
       "image": "https://picsum.photos/seed/excavator/1200/800"
     },
     "showcase": [
-      { "img": "https://picsum.photos/seed/heavy-machinery/800/600", "title": "Central Dashboard", "desc": "A bird'\''s eye view of every active ticket across all your projects." },
+      { "img": "https://picsum.photos/seed/heavy-machinery/800/600", "title": "Central Dashboard", "desc": "A bird''s eye view of every active ticket across all your projects." },
       { "img": "https://picsum.photos/seed/construction-worker/800/600", "title": "Mobile Field Access", "desc": "Foremen can check ticket status and upload mark-out photos on site." },
       { "img": "https://picsum.photos/seed/blueprint/800/600", "title": "Smart Notifications", "desc": "Never miss a renewal deadline with our proactive alert system." }
     ],
