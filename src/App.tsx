@@ -49,7 +49,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
             email: formData.email,
             phone: formData.phone,
             industry: formData.industry,
-            source_cta: title,
+            request_type: title,
             created_at: new Date().toISOString()
           }
         ]);
@@ -257,7 +257,19 @@ const useSiteContent = () => {
     }
   };
 
-  return { content: content || defaultContent, loading };
+  // Deep-merge fetched content with defaults so that missing or empty keys
+  // always fall back to sensible values. Using `content || defaultContent`
+  // would fail when `content` is `{}` (truthy but empty), which happens when
+  // the DB row is seeded with an empty JSON object — causing a white screen
+  // because component code like `content.hero.title` throws TypeError.
+  const mergedContent = content ? {
+    hero: { ...defaultContent.hero, ...(content.hero || {}) },
+    showcase: Array.isArray(content.showcase) ? content.showcase : defaultContent.showcase,
+    cta: { ...defaultContent.cta, ...(content.cta || {}) },
+    ...(content.footer ? { footer: content.footer } : {}),
+  } : defaultContent;
+
+  return { content: mergedContent, loading };
 };
 
 const Navbar = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
