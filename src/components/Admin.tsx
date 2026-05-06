@@ -70,7 +70,7 @@ export function AdminLogin() {
         <div className="bg-white rounded-3xl shadow-xl border border-zinc-200 overflow-hidden">
           <div className="p-8">
             <div className="flex items-center gap-2 mb-8 justify-center">
-              <Construction className="w-8 h-8 text-emerald-600" />
+              <Construction className="w-8 h-8 text-amber-600" />
               <span className="text-xl font-bold tracking-tight text-zinc-900">Dig Track Admin</span>
             </div>
             
@@ -90,7 +90,7 @@ export function AdminLogin() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
                   placeholder="admin@digtrack.pro"
                 />
               </div>
@@ -101,7 +101,7 @@ export function AdminLogin() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
                   placeholder="••••••••"
                 />
               </div>
@@ -273,7 +273,7 @@ export function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
+        <Loader2 className="w-8 h-8 text-amber-600 animate-spin" />
       </div>
     );
   }
@@ -284,7 +284,7 @@ export function AdminDashboard() {
       <header className="bg-white border-b border-zinc-200 sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white">
+            <div className="w-10 h-10 bg-amber-600 rounded-xl flex items-center justify-center text-white">
               <LayoutDashboard className="w-6 h-6" />
             </div>
             <div>
@@ -353,7 +353,7 @@ export function AdminDashboard() {
                     placeholder="Search leads by name, business or email..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all text-sm"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-sm"
                   />
                 </div>
                 <div className="flex items-center gap-2">
@@ -416,7 +416,7 @@ export function AdminDashboard() {
                           </div>
                         </td>
                         <td className="px-6 py-4 text-right">
-                          <button className="p-2 hover:bg-white hover:shadow-sm rounded-lg transition-all text-zinc-400 hover:text-emerald-600">
+                          <button className="p-2 hover:bg-white hover:shadow-sm rounded-lg transition-all text-zinc-400 hover:text-amber-600">
                             <ChevronRight className="w-5 h-5" />
                           </button>
                         </td>
@@ -444,7 +444,7 @@ export function AdminDashboard() {
               <button 
                 onClick={handleSaveSiteContent}
                 disabled={saving}
-                className="bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-emerald-700 transition-all flex items-center gap-2 shadow-lg shadow-emerald-600/20 disabled:opacity-70"
+                className="bg-amber-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-amber-700 transition-all flex items-center gap-2 shadow-lg shadow-amber-600/20 disabled:opacity-70"
               >
                 {saving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-5 h-5" />}
                 Save Changes
@@ -455,7 +455,7 @@ export function AdminDashboard() {
               {/* Hero Section Editor */}
               <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
                 <div className="flex items-center gap-3 pb-4 border-b border-zinc-100">
-                  <ImageIcon className="text-emerald-600 w-5 h-5" />
+                  <ImageIcon className="text-amber-600 w-5 h-5" />
                   <h3 className="font-bold text-zinc-900">Hero Section</h3>
                 </div>
                 
@@ -466,7 +466,7 @@ export function AdminDashboard() {
                       type="text"
                       value={siteContent?.hero?.title || ''}
                       onChange={(e) => setSiteContent({ ...siteContent, hero: { ...siteContent.hero, title: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -475,7 +475,7 @@ export function AdminDashboard() {
                       rows={3}
                       value={siteContent?.hero?.subtitle || ''}
                       onChange={(e) => setSiteContent({ ...siteContent, hero: { ...siteContent.hero, subtitle: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all resize-none"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -496,7 +496,7 @@ export function AdminDashboard() {
                           placeholder="Image URL"
                           value={siteContent?.hero?.image || ''}
                           onChange={(e) => setSiteContent({ ...siteContent, hero: { ...siteContent.hero, image: e.target.value } })}
-                          className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                          className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500/20"
                         />
                         <label className="inline-flex items-center gap-2 px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 rounded-lg text-[10px] font-bold text-zinc-600 cursor-pointer transition-all">
                           <Upload className="w-3 h-3" />
@@ -517,7 +517,7 @@ export function AdminDashboard() {
               {/* CTA Section Editor */}
               <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
                 <div className="flex items-center gap-3 pb-4 border-b border-zinc-100">
-                  <MessageSquare className="text-emerald-600 w-5 h-5" />
+                  <MessageSquare className="text-amber-600 w-5 h-5" />
                   <h3 className="font-bold text-zinc-900">Call to Action (CTA)</h3>
                 </div>
                 
@@ -528,7 +528,7 @@ export function AdminDashboard() {
                       type="text"
                       value={siteContent?.cta?.title || 'Stop Managing Tickets. Start Managing Your Business.'}
                       onChange={(e) => setSiteContent({ ...siteContent, cta: { ...(siteContent.cta || {}), title: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -537,7 +537,7 @@ export function AdminDashboard() {
                       rows={3}
                       value={siteContent?.cta?.subtitle || 'The "Ticket Chaos" ends today. Join the hundreds of contractors who have traded their sticky notes for Dig Track Pro.'}
                       onChange={(e) => setSiteContent({ ...siteContent, cta: { ...(siteContent.cta || {}), subtitle: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all resize-none"
                     />
                   </div>
                 </div>
@@ -546,7 +546,7 @@ export function AdminDashboard() {
               {/* Footer Section Editor */}
               <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6">
                 <div className="flex items-center gap-3 pb-4 border-b border-zinc-100">
-                  <Globe className="text-emerald-600 w-5 h-5" />
+                  <Globe className="text-amber-600 w-5 h-5" />
                   <h3 className="font-bold text-zinc-900">Footer Section</h3>
                 </div>
                 
@@ -557,7 +557,7 @@ export function AdminDashboard() {
                       type="text"
                       value={siteContent?.footer?.text || ''}
                       onChange={(e) => setSiteContent({ ...siteContent, footer: { ...(siteContent.footer || {}), text: e.target.value } })}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
                     />
                   </div>
                 </div>
@@ -567,7 +567,7 @@ export function AdminDashboard() {
               <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm space-y-6 lg:col-span-2">
                 <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
                   <div className="flex items-center gap-3">
-                    <LayoutDashboard className="text-emerald-600 w-5 h-5" />
+                    <LayoutDashboard className="text-amber-600 w-5 h-5" />
                     <h3 className="font-bold text-zinc-900">Product Showcase</h3>
                   </div>
                   <button 
@@ -575,7 +575,7 @@ export function AdminDashboard() {
                       const newShowcase = [...(siteContent?.showcase || []), { img: '', title: 'New Feature', desc: '' }];
                       setSiteContent({ ...siteContent, showcase: newShowcase });
                     }}
-                    className="text-emerald-600 hover:text-emerald-700 text-sm font-bold flex items-center gap-1"
+                    className="text-amber-600 hover:text-amber-700 text-sm font-bold flex items-center gap-1"
                   >
                     <Plus className="w-4 h-4" /> Add Item
                   </button>

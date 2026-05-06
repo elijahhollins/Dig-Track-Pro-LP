@@ -111,7 +111,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                   animate={{ opacity: 1, y: 0 }}
                   className="py-12 text-center"
                 >
-                  <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <h4 className="text-xl font-bold text-zinc-900 mb-2">Request Received!</h4>
@@ -133,7 +133,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                         value={formData.fullName}
                         onChange={handleChange}
                         type="text" 
-                        className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" 
+                        className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all" 
                         placeholder="John Doe" 
                       />
                     </div>
@@ -145,7 +145,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                         value={formData.businessName}
                         onChange={handleChange}
                         type="text" 
-                        className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" 
+                        className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all" 
                         placeholder="Excavation Co." 
                       />
                     </div>
@@ -158,7 +158,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                       value={formData.email}
                       onChange={handleChange}
                       type="email" 
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" 
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all" 
                       placeholder="john@company.com" 
                     />
                   </div>
@@ -170,7 +170,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                       value={formData.phone}
                       onChange={handleChange}
                       type="tel" 
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all" 
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all" 
                       placeholder="(555) 000-0000" 
                     />
                   </div>
@@ -181,7 +181,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                       name="industry"
                       value={formData.industry}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all bg-white"
+                      className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all bg-white"
                     >
                       <option value="">Select your industry</option>
                       <option value="excavation">Excavation Contractor</option>
@@ -194,7 +194,7 @@ const LeadFormModal = ({ isOpen, onClose, title }: { isOpen: boolean, onClose: (
                   <button 
                     disabled={loading}
                     type="submit" 
-                    className="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full bg-amber-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-amber-700 transition-all shadow-lg shadow-amber-600/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {loading ? (
                       <>Processing... <Loader2 className="w-5 h-5 animate-spin" /></>
@@ -278,16 +278,16 @@ const useSiteContent = () => {
 const Navbar = ({ onOpenModal }: { onOpenModal: (title: string) => void }) => (
   <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full border-b border-black/5">
     <div className="flex items-center gap-2">
-      <Construction className="w-8 h-8 text-emerald-600" />
+      <Construction className="w-8 h-8 text-amber-600" />
       <span className="text-xl font-bold tracking-tight text-zinc-900">Dig Track Pro</span>
     </div>
     <div className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600">
-      <a href="#platform" className="hover:text-emerald-600 transition-colors">Platform</a>
-      <a href="#product-showcase" className="hover:text-emerald-600 transition-colors">Showcase</a>
+      <a href="#platform" className="hover:text-amber-600 transition-colors">Platform</a>
+      <a href="#product-showcase" className="hover:text-amber-600 transition-colors">Showcase</a>
     </div>
     <button 
       onClick={() => onOpenModal("Start Your Free Trial")}
-      className="bg-emerald-600 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors shadow-sm"
+      className="bg-amber-600 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors shadow-sm"
     >
       Start Free Trial
     </button>
@@ -302,10 +302,10 @@ const Hero = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, 
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-6 border border-emerald-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold uppercase tracking-wider mb-6 border border-amber-100">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
           </span>
           Trusted by 500+ Contractors
         </div>
@@ -318,7 +318,7 @@ const Hero = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, 
         <div className="flex flex-col sm:flex-row gap-4">
           <button 
             onClick={() => onOpenModal("Start Your Free Trial")}
-            className="bg-emerald-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2"
+            className="bg-amber-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-amber-700 transition-all shadow-lg shadow-amber-600/20 flex items-center justify-center gap-2"
           >
             Start Your 14-Day Free Trial <ArrowRight className="w-5 h-5" />
           </button>
@@ -347,8 +347,8 @@ const Hero = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, 
           ></iframe>
         </div>
         {/* Decorative elements */}
-        <div className="absolute -top-6 -right-6 w-32 h-32 bg-emerald-600/10 blur-3xl rounded-full" />
-        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-emerald-600/10 blur-3xl rounded-full" />
+        <div className="absolute -top-6 -right-6 w-32 h-32 bg-amber-600/10 blur-3xl rounded-full" />
+        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-amber-600/10 blur-3xl rounded-full" />
       </motion.div>
     </div>
   </section>
@@ -404,7 +404,7 @@ const PlatformSection = () => {
                     { icon: <AlertTriangle className="text-red-500" />, title: "Inbox Chaos", desc: "Tickets scattered across office emails." },
                     { icon: <Clock className="text-amber-500" />, title: "Renewal Guesses", desc: "Nobody knows exactly when a ticket expires." },
                     { icon: <Smartphone className="text-blue-500" />, title: "Field Gaps", desc: "Office thinks it's good; field knows it's not." },
-                    { icon: <ShieldCheck className="text-emerald-500" />, title: "Risk Exposure", desc: "Scrambling for photos when a hit happens." }
+                    { icon: <ShieldCheck className="text-amber-500" />, title: "Risk Exposure", desc: "Scrambling for photos when a hit happens." }
                   ].map((item, i) => (
                     <div key={i} className="flex gap-3">
                       <div className="shrink-0 mt-1">{item.icon}</div>
@@ -417,15 +417,15 @@ const PlatformSection = () => {
                 </div>
               </div>
               <div className="bg-zinc-900 rounded-[2rem] p-10 text-white relative overflow-hidden shadow-2xl">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-600/20 blur-3xl rounded-full -mr-32 -mt-32" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-600/20 blur-3xl rounded-full -mr-32 -mt-32" />
                 <div className="relative z-10">
                   <h3 className="text-2xl font-bold mb-6">Protect Your Profit.</h3>
                   <p className="text-zinc-400 mb-8 leading-relaxed">
                     Most utility hits aren't caused by negligence; they're caused by bad information. Dig Track Pro acts as your insurance policy against "expired ticket" hits.
                   </p>
                   <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10">
-                    <div className="w-12 h-12 bg-emerald-600/20 rounded-xl flex items-center justify-center">
-                      <ShieldCheck className="text-emerald-400" />
+                    <div className="w-12 h-12 bg-amber-600/20 rounded-xl flex items-center justify-center">
+                      <ShieldCheck className="text-amber-400" />
                     </div>
                     <div>
                       <p className="font-bold text-sm">Centralized Documentation</p>
@@ -454,8 +454,8 @@ const PlatformSection = () => {
                 { icon: <Clock />, title: "Renewal Tracking", desc: "Log your renewal dates and track the history of every ticket. Never lose track." },
                 { icon: <HardHat />, title: "Crew Coordination", desc: "Assign tickets to specific crews and ensure everyone is working on valid tickets." }
               ].map((feature, i) => (
-                <div key={i} className="bg-white p-8 rounded-3xl border border-zinc-200 hover:border-emerald-500/50 transition-colors group">
-                  <div className="w-12 h-12 bg-zinc-50 text-zinc-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 rounded-2xl flex items-center justify-center mb-6 transition-colors">
+                <div key={i} className="bg-white p-8 rounded-3xl border border-zinc-200 hover:border-amber-500/50 transition-colors group">
+                  <div className="w-12 h-12 bg-zinc-50 text-zinc-400 group-hover:bg-amber-50 group-hover:text-amber-600 rounded-2xl flex items-center justify-center mb-6 transition-colors">
                     {feature.icon}
                   </div>
                   <h3 className="text-lg font-bold text-zinc-900 mb-3">{feature.title}</h3>
@@ -530,25 +530,25 @@ const ProductShowcase = ({ showcase }: { showcase: any[] }) => (
 
 const CTA = ({ onOpenModal, content }: { onOpenModal: (title: string) => void, content: any }) => (
   <section className="py-24 px-6">
-    <div className="max-w-5xl mx-auto bg-emerald-600 rounded-[2.5rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-emerald-600/30">
+    <div className="max-w-5xl mx-auto bg-amber-600 rounded-[2.5rem] p-12 md:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-amber-600/30">
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent)]" />
       <div className="relative z-10">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
           {content.cta?.title || 'Stop Managing Tickets. Start Managing Your Business.'}
         </h2>
-        <p className="text-xl text-emerald-50 mb-12 max-w-2xl mx-auto">
+        <p className="text-xl text-amber-50 mb-12 max-w-2xl mx-auto">
           {content.cta?.subtitle || 'The "Ticket Chaos" ends today. Join the hundreds of contractors who have traded their sticky notes for Dig Track Pro.'}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button 
             onClick={() => onOpenModal("Start Your Free Trial")}
-            className="bg-white text-emerald-600 px-10 py-5 rounded-2xl text-xl font-bold hover:bg-emerald-50 transition-all shadow-xl"
+            className="bg-white text-amber-600 px-10 py-5 rounded-2xl text-xl font-bold hover:bg-amber-50 transition-all shadow-xl"
           >
             Start Your Free Trial
           </button>
           <button 
             onClick={() => onOpenModal("Talk to an Expert")}
-            className="bg-emerald-700/50 text-white border border-white/20 px-10 py-5 rounded-2xl text-xl font-bold hover:bg-emerald-700/70 transition-all"
+            className="bg-amber-700/50 text-white border border-white/20 px-10 py-5 rounded-2xl text-xl font-bold hover:bg-amber-700/70 transition-all"
           >
             Talk to an Expert
           </button>
@@ -562,15 +562,15 @@ const Footer = ({ content }: { content: any }) => (
   <footer className="py-12 border-t border-zinc-200 px-6">
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
       <div className="flex items-center gap-2">
-        <Construction className="w-6 h-6 text-emerald-600" />
+        <Construction className="w-6 h-6 text-amber-600" />
         <span className="text-lg font-bold text-zinc-900">Dig Track Pro</span>
       </div>
       <div className="text-sm text-zinc-500">
         {content.footer?.text || `© ${new Date().getFullYear()} Dig Track Pro. Built for contractors who move the earth.`}
       </div>
       <div className="flex gap-6 text-sm font-medium text-zinc-600">
-        <a href="#" className="hover:text-emerald-600">Privacy</a>
-        <a href="#" className="hover:text-emerald-600">Terms</a>
+        <a href="#" className="hover:text-amber-600">Privacy</a>
+        <a href="#" className="hover:text-amber-600">Terms</a>
         <Link to="/admin" className="opacity-0 hover:opacity-100 transition-opacity text-[10px]">Admin</Link>
       </div>
     </div>
@@ -591,13 +591,13 @@ function LandingPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
+        <Loader2 className="w-8 h-8 text-amber-600 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-amber-100 selection:text-amber-900">
       <Navbar onOpenModal={openModal} />
       <main>
         <Hero onOpenModal={openModal} content={content} />
@@ -646,7 +646,7 @@ function AdminRoutes() {
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-emerald-600 animate-spin" />
+        <Loader2 className="w-8 h-8 text-amber-600 animate-spin" />
       </div>
     );
   }
