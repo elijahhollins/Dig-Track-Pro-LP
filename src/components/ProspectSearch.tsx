@@ -104,8 +104,8 @@ Return ONLY a valid JSON array — no markdown, no explanation, no backticks. Ex
       let parsed: Prospect[] = [];
       try {
         parsed = JSON.parse(clean);
-      } catch {
-        console.error('JSON parse error:', text);
+      } catch (parseError) {
+        console.error('JSON parse error:', parseError, text);
         setError('Failed to parse AI response. Please try again.');
         return;
       }
@@ -213,7 +213,7 @@ Return ONLY a valid JSON array — no markdown, no explanation, no backticks. Ex
                     </p>
                   </div>
                   <span
-                    className={`shrink-0 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${PRIORITY_COLORS[p.priority] ?? PRIORITY_COLORS.low}`}
+                    className={`shrink-0 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${PRIORITY_COLORS[p.priority ?? 'low'] ?? PRIORITY_COLORS.low}`}
                   >
                     {p.priority}
                   </span>
