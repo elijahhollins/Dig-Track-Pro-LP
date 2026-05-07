@@ -23,8 +23,10 @@ import {
   Trash2,
   Upload,
   Globe,
-  MessageSquare
+  MessageSquare,
+  SearchCheck,
 } from 'lucide-react';
+import { ProspectSearch } from './ProspectSearch';
 
 interface Lead {
   id: string;
@@ -124,7 +126,7 @@ export function AdminLogin() {
 }
 
 export function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<'leads' | 'site'>('leads');
+  const [activeTab, setActiveTab] = useState<'leads' | 'site' | 'prospects'>('leads');
   const [leads, setLeads] = useState<Lead[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -309,6 +311,13 @@ export function AdminDashboard() {
                 <Settings className="w-4 h-4" />
                 Site Editor
               </button>
+              <button 
+                onClick={() => setActiveTab('prospects')}
+                className={`px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 ${activeTab === 'prospects' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'}`}
+              >
+                <SearchCheck className="w-4 h-4" />
+                Prospects
+              </button>
             </div>
             
             <button 
@@ -434,6 +443,8 @@ export function AdminDashboard() {
               </div>
             </div>
           </>
+        ) : activeTab === 'prospects' ? (
+          <ProspectSearch />
         ) : (
           <div className="space-y-8">
             <div className="flex items-center justify-between">
